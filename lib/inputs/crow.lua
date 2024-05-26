@@ -1,6 +1,8 @@
 local Input = include('lib/inputs/input')
 
-local CrowInput = {}
+local CrowInput = {
+  signal = nil
+}
 
 setmetatable(CrowInput, {__index = Input})
 
@@ -13,9 +15,16 @@ end
 
 function CrowInput:init(emitter)
   self.emitter = emitter
-  -- TODO connect input streams to emitter
-  -- crow.input[i]:get('source').mode('stream', time_arg)
-  -- may need to do dirty if no event is possible
+  crow.input[1].stream = function(v) self.signal = v end
+  crow.input[2].change = function(v)
+    self:_emit({
+      gate = v,
+      signal = self.signal,
+      type = 'cv'
+    }) 
+  end
+  crow.input[1].mode('stream')
+  crow.input[2].mode('change')
 end
 
 return CrowInput
