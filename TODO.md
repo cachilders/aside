@@ -1,10 +1,9 @@
 - ~~In~~
   - ~~MIDI~~
   - ~~Crow~~
-- Out
-  - MIDI
-  - Crow
-  - NB
+- ~~Out~~
+  - ~~MIDI~~
+  - ~~Crow~~
 - Internal LFO
   - Consider 16 LFOs for MIDI + LFO for crow
   - Consider LFOs being parametric and available for external modulation
@@ -21,6 +20,9 @@
   - Allow instantiation of all midi devices
   - Allow parameter enable disable of any midi device
   - Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)
+  - Respond to device added or removed (if needed)
 ---
+- Outputs
+  - Add NB
 - Consider parameter to replace velocity change with scale degree changes?
 - Other echo variations
