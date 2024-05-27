@@ -1,7 +1,7 @@
 local Input = include('lib/inputs/input')
 
 local InputCrow = {
-  signal = nil
+  volts = nil
 }
 
 setmetatable(InputCrow, {__index = Input})
@@ -15,11 +15,11 @@ end
 
 function InputCrow:init(emitter)
   self.emitter = emitter
-  crow.input[1].stream = function(v) self.signal = v end
-  crow.input[2].change = function(v)
+  crow.input[1].stream = function(v) self.volts = v end
+  crow.input[2].change = function(gate)
     self:_emit({
-      gate = v,
-      signal = self.signal,
+      gate = gate,
+      volts = self.volts,
       type = 'cv'
     }) 
   end

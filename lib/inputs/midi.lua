@@ -13,10 +13,8 @@ function InputMidi:new(options)
   return instance
 end
 
-function InputMidi:init(emitter)
-  self.emitter = emitter
-  self.connection = midi.connect()
-  self.connection.event = function(data)
+function InputMidi:init(emitter, device)
+  device.event = function(data)
     local e = midi.to_msg(data)
     if e.type == 'note_on' or e.type == 'note_off' then
       self:_emit({
@@ -28,6 +26,9 @@ function InputMidi:init(emitter)
       })
     end
   end
+
+  self.emitter = emitter
+  self.connection = device
 end
 
 return InputMidi

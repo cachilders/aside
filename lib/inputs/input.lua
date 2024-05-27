@@ -22,6 +22,7 @@ function Input:set(k, v)
 end
 
 function Input:_emit(message)
+  message.origin = 'input'
   self.emitter:set(message)
 end
 
