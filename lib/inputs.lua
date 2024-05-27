@@ -12,15 +12,16 @@ function Inputs:new(options)
   return instance
 end
 
-function Inputs:init(emitter)
-  self.emitter = emitter
-  self.list = {
-    InputCrow:new(),
-    InputMidi:new()
-  }
+function Inputs:init(emitter, connections)
+  local c = InputCrow:new()
+  c:init(emitter)
+  
+  self.list = {c}
 
-  for i = 1, #self.list do
-   self.list[i]:init(emitter)
+  for i = 1, #connections do
+    local m = InputMidi:new()
+    m:init(emitter, connections[i])
+    table.insert(self.list, m)
   end
 end
 

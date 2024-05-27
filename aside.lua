@@ -5,6 +5,7 @@
 local Inputs = include('lib/inputs')
 
 local emitters = nil
+local midi_connections = nil
 local observable = require('container.observable')
 local shift = false
 
@@ -26,7 +27,13 @@ end
 local function init_inputs()
   emitters.input = observable.new()
   local inputs = Inputs:new()
-  inputs:init(emitters.input)
+  inputs:init(emitters.input, midi_connections)
+end
+
+local function init_midi()
+  midi_connections = {
+    midi.connect()  -- TODO: init all devices
+  }
 end
 
 local function init_subscribers()
@@ -34,6 +41,7 @@ local function init_subscribers()
 end
 
 function init()
+  init_midi()
   init_emitters()
   init_inputs()
   init_subscribers()
