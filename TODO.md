@@ -4,11 +4,11 @@
 - ~~Out~~
   - ~~MIDI~~
   - ~~Crow~~
-- Internal LFO
-  - Consider 16 LFOs for MIDI + LFO for crow
-  - Consider LFOs being parametric and available for external modulation
+- ~~Internal LFO~~
+  - ~~Consider 16 LFOs for MIDI + LFO for crow~~
 - Params
   - Just the basics
+  - Consider LFOs being parametric and available for external modulation
 - Record MIDI events
   - On events
   - Off events

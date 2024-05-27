@@ -3,10 +3,12 @@
 
 
 local Inputs = include('lib/inputs')
+local Lfos = include('lib/lfos')
 local Outputs = include('lib/outputs')
 
 local emitters = nil
 local inputs = nil
+local lfos = nil
 local midi_connections = nil
 local observable = require('container.observable')
 local outputs = nil
@@ -33,6 +35,11 @@ local function init_inputs()
   inputs:init(emitters.input, midi_connections)
 end
 
+local function init_lfos()
+  lfos = Lfos:new()
+  lfos:init()
+end
+
 local function init_midi()
   midi_connections = {
     midi.connect()  -- TODO: init all possible devices
@@ -53,12 +60,16 @@ local function init_subscribers()
       else
         outputs.midi[1]:note_off(message)
       end
+      local osc = lfos:poll(3)
+      print(osc.period, osc.value)
     elseif message.type == 'cv' then
       if message.gate then
         outputs.crow[1]:note_on(message)
       else
         outputs.crow[1]:note_off(message)
       end
+      local osc = lfos:poll(2)
+      print(osc.period, osc.value)
     end
   end)
   emitters.output:register('output_test', function(message) test_message = message end)
@@ -68,6 +79,7 @@ function init()
   init_midi()
   init_emitters()
   init_inputs()
+  init_lfos()
   init_outputs()
   init_subscribers()
 end
