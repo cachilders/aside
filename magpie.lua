@@ -1,4 +1,4 @@
--- Aside
+-- Magpie
 -- modulated note echo for midi and crow
 
 musicutil = require('musicutil')
@@ -6,6 +6,7 @@ musicutil = require('musicutil')
 local Inputs = include('lib/inputs')
 local Lfos = include('lib/lfos')
 local Outputs = include('lib/outputs')
+local Parameters = include('lib/parameters')
 local Relayer = include('lib/relayer')
 
 local emitters = nil
@@ -14,6 +15,7 @@ local lfos = nil
 local midi_connections = nil
 local observable = require('container.observable')
 local outputs = nil
+local parameters = nil
 local relayer = nil
 local shift = false
 
@@ -55,6 +57,11 @@ local function init_outputs()
   outputs:init(emitters.output, midi_connections)
 end
 
+local function init_parameters()
+  parameters = Parameters:new()
+  parameters:init(lfos:get('list'))
+end
+
 local function init_relayer()
   relayer = Relayer:new()
 end
@@ -75,6 +82,7 @@ function init()
   init_inputs()
   init_lfos()
   init_outputs()
+  init_parameters()
   init_relayer()
   init_subscribers()
 end

@@ -1,7 +1,8 @@
 local Input = include('lib/inputs/input')
 
 local InputMidi = {
-  connection = nil
+  connection = nil,
+  type = 'midi'
 }
 
 setmetatable(InputMidi, {__index = Input})
@@ -21,7 +22,7 @@ function InputMidi:init(id, emitter, device)
         channel = e.ch,
         event = e.type,
         note = e.note,
-        type = 'midi',
+        type = self.type,
         velocity = e.vel,
         volts = musicutil.note_num_to_freq(e.note) -- TODO scale to make sense
       })

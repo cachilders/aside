@@ -1,6 +1,7 @@
 local Input = include('lib/inputs/input')
 
 local InputCrow = {
+  type = 'cv',
   volts = nil
 }
 
@@ -22,7 +23,7 @@ function InputCrow:init(id, emitter)
       channel = 1,
       event = gate and 'note_on' or 'note_off',
       note = musicutil.freq_to_note_num(self.volts), -- TODO Scale to midi voltage
-      type = 'cv',
+      type = self.type,
       velocity = gate and 127 or 0,
       volts = self.volts
     }) 

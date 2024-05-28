@@ -1,6 +1,7 @@
 local Input = {
   emitter = nil,
-  id = nil
+  id = nil,
+  type = nil
 }
 
 function Input:new(options)
