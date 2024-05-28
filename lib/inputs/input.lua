@@ -1,5 +1,6 @@
 local Input = {
-  emitter = nil
+  emitter = nil,
+  id = nil
 }
 
 function Input:new(options)
@@ -9,7 +10,7 @@ function Input:new(options)
   return instance
 end
 
-function Input:init(emitter)
+function Input:init(id, emitter)
   self.emitter = emitter
 end
 
@@ -23,7 +24,7 @@ end
 
 function Input:_emit(message)
   message.origin = 'input'
-  self.emitter:set(message)
+  self.emitter:set({message, self.id})
 end
 
 return Input

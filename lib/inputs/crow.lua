@@ -13,14 +13,18 @@ function InputCrow:new(options)
   return instance
 end
 
-function InputCrow:init(emitter)
+function InputCrow:init(id, emitter)
   self.emitter = emitter
+  self.id = id
   crow.input[1].stream = function(v) self.volts = v end
   crow.input[2].change = function(gate)
     self:_emit({
-      gate = gate,
-      volts = self.volts,
-      type = 'cv'
+      channel = 1,
+      event = gate and 'note_on' or 'note_off',
+      note = musicutil.freq_to_note_num(self.volts), -- TODO Scale to midi voltage
+      type = 'cv',
+      velocity = gate and 127 or 0,
+      volts = self.volts
     }) 
   end
   crow.input[1].mode('stream')

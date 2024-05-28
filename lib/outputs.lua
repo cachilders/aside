@@ -2,8 +2,7 @@ local OutputCrow = include('lib/outputs/crow')
 local OutputMidi = include('lib/outputs/midi')
 
 local Outputs = {
-  crow = nil,
-  midi = nil
+  list = nil
 }
 
 function Outputs:new(options)
@@ -14,30 +13,22 @@ function Outputs:new(options)
 end
 
 function Outputs:init(emitter, connections)
-  local midis = {}
-  local murder = {}
-  for i = 1, 3, 2 do
-    local c = OutputCrow:new()
-    c:init(emitter, i)
-    table.insert(murder, c)
-  end
+  local c = OutputCrow:new()
+  c:init(1, emitter)
+
+  local outputs = {c}
 
   for i = 1, #connections do
     local m = OutputMidi:new()
-    m:init(emitter, connections[i])
-    table.insert(midis, m)
+    m:init(i + 1, emitter, connections[i])
+    table.insert(outputs, m)
   end
 
-  self.crow = murder
-  self.midi = midis
+  self.list = outputs
 end
 
-function Outputs:get(k)
-  return self[k]
-end
-
-function Outputs:set(k, v)
-  self[k] = v
+function Outputs:at(k)
+  return self.list[k]
 end
 
 return Outputs
