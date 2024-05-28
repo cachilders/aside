@@ -13,11 +13,12 @@
 - ~~Echo CV gate on fixed interval~~
 - ~~Couple delay interval to LFO freq (some formula based on beat clock and sample freq)~~
 - ~~Couple velocity LFO amplitude~~
-- Params
-  - Just the basics
+- ~~Params~~
+  - ~~Just the basics~~
   - ~~Consider LFOs being parametric and available for external modulation~~
 - Scale volts to midi and vice versa
   - https://llllllll.co/t/frequencies-and-cv-converting-back-and-forth-in-lua-math-math-math/50984/2
+- Route and toggle in relayer
 - Expand Midi
   - Panic
   - Allow instantiation of all midi devices
