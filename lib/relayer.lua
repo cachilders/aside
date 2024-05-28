@@ -21,6 +21,14 @@ function Relayer:delay(s, message, output)
 end
 
 function Relayer:process(message, output, lfo_state)
+  local delay
+
+  if lfo_state.mode == 'free' then
+    delay = lfo_state.period
+  else
+    delay = (60 / params:get('clock_tempo')) * lfo_state.period
+  end
+
   self.relay(message, output)
 
   local echo = {
@@ -32,7 +40,7 @@ function Relayer:process(message, output, lfo_state)
     volts = message.volts
   }
 
-  self:delay(lfo_state.period, echo, output)
+  self:delay(delay, echo, output)
 end
 
 return Relayer

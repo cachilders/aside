@@ -24,10 +24,12 @@ function Parameters:init(lfos)
   self:_fetch_device_state()
   self:_init_device_params()
   self:_init_lfo_params(lfos)
+  params:bang()
 end
 
 function Parameters:refresh(lfos)
   -- TODO
+  params:bang()
 end
 
 function Parameters:get(k)
