@@ -19,6 +19,7 @@
 - Scale volts to midi and vice versa
   - Decide if it is window or direct note to freq scale 0 - 127 mapped to 0/-5 - 10
 - Expand Midi
+  - Panic
   - Allow instantiation of all midi devices
   - Allow parameter enable disable of any midi device
   - Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)

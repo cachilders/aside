@@ -6,6 +6,7 @@ musicutil = require('musicutil')
 local Inputs = include('lib/inputs')
 local Lfos = include('lib/lfos')
 local Outputs = include('lib/outputs')
+local Parameters = include('lib/parameters')
 local Relayer = include('lib/relayer')
 
 local emitters = nil
@@ -55,6 +56,10 @@ local function init_outputs()
   outputs:init(emitters.output, midi_connections)
 end
 
+local function init_parameters()
+  Parameters.init()
+end
+
 local function init_relayer()
   relayer = Relayer:new()
 end
@@ -70,6 +75,7 @@ local function init_subscribers()
 end
 
 function init()
+  init_parameters()
   init_midi()
   init_emitters()
   init_inputs()

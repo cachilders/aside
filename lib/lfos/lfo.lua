@@ -17,6 +17,8 @@ function Lfo:init(lfo_lib, id)
     mode = 'free',
     period = 1
   }
+
+  self.instance:add_params(id, 'lfo '..id, 'lfo '..id)
 end
 
 function Lfo:set(k, v)
