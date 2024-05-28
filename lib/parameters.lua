@@ -64,7 +64,9 @@ function Parameters:_enumerate_midi_devices()
   for i = 1, #midi.vports do
     if midi.vports[i].name ~= 'none' then
       local device = midi.vports[i].device
-      devices[i] = {name = device.name, port = device.port}
+      if device then 
+        devices[i] = {name = device.name, port = device.port}
+      end
     end
   end
 

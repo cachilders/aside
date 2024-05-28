@@ -17,7 +17,7 @@
   - ~~Just the basics~~
   - ~~Consider LFOs being parametric and available for external modulation~~
 - ~~Scale volts to midi and vice versa~~
-- Route and toggle in relayer
+- ~~Route and toggle in relayer~~
 - Expand Midi
   - Panic
   - Allow instantiation of all midi devices
@@ -25,6 +25,7 @@
   - Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)
   - Respond to device added or removed (if needed)
   - MPE stuff? Probably below the line
+- UI Feedback
 ---
 - Outputs
   - Add NB or mx
