@@ -1,5 +1,6 @@
 local Output = {
-  emitter
+  emitter = nil,
+  id = nil
 }
 
 function Output:new(options)
@@ -9,8 +10,9 @@ function Output:new(options)
   return instance
 end
 
-function Output:init(emitter)
+function Output:init(id, emitter)
   self.emitter = emitter
+  self.id = id
 end
 
 function Output:note_on(message)
@@ -21,6 +23,14 @@ end
 function Output:note_off(message)
   print(message)
   self:_emit(message)
+end
+
+function Output:receive(message)
+  if message.event == 'note_on' then
+    self:note_on(message)
+  elseif message.event == 'note_off' then
+    self:note_off(message)
+  end
 end
 
 function Output:_emit(message)

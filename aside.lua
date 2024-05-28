@@ -1,10 +1,12 @@
 -- Aside
 -- modulated note echo for midi and crow
 
+musicutil = require('musicutil')
 
 local Inputs = include('lib/inputs')
 local Lfos = include('lib/lfos')
 local Outputs = include('lib/outputs')
+local Relayer = include('lib/relayer')
 
 local emitters = nil
 local inputs = nil
@@ -12,6 +14,7 @@ local lfos = nil
 local midi_connections = nil
 local observable = require('container.observable')
 local outputs = nil
+local relayer = nil
 local shift = false
 
 -- TEMP
@@ -52,25 +55,16 @@ local function init_outputs()
   outputs:init(emitters.output, midi_connections)
 end
 
+local function init_relayer()
+  relayer = Relayer:new()
+end
+
 local function init_subscribers()
-  emitters.input:register('input_test', function(message)
-    if message.type == 'midi' then
-      if message.event == 'note_on' then
-        outputs.midi[1]:note_on(message)
-      else
-        outputs.midi[1]:note_off(message)
-      end
-      local osc = lfos:poll(3)
-      print(osc.period, osc.value)
-    elseif message.type == 'cv' then
-      if message.gate then
-        outputs.crow[1]:note_on(message)
-      else
-        outputs.crow[1]:note_off(message)
-      end
-      local osc = lfos:poll(2)
-      print(osc.period, osc.value)
-    end
+  emitters.input:register('relayer_process', function(e)
+    local message = e[1]
+    local input_id = e[2]
+    local lfo_state = lfos:poll(input_id)
+    relayer:process(message, outputs:at(input_id), lfo_state)
   end)
   emitters.output:register('output_test', function(message) test_message = message end)
 end
@@ -81,6 +75,7 @@ function init()
   init_inputs()
   init_lfos()
   init_outputs()
+  init_relayer()
   init_subscribers()
 end
 

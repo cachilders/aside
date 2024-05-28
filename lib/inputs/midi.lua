@@ -13,7 +13,7 @@ function InputMidi:new(options)
   return instance
 end
 
-function InputMidi:init(emitter, device)
+function InputMidi:init(id, emitter, device)
   device.event = function(data)
     local e = midi.to_msg(data)
     if e.type == 'note_on' or e.type == 'note_off' then
@@ -22,13 +22,15 @@ function InputMidi:init(emitter, device)
         event = e.type,
         note = e.note,
         type = 'midi',
-        velocity = e.vel
+        velocity = e.vel,
+        volts = musicutil.note_num_to_freq(e.note) -- TODO scale to make sense
       })
     end
   end
 
-  self.emitter = emitter
   self.connection = device
+  self.emitter = emitter
+  self.id = id
 end
 
 return InputMidi

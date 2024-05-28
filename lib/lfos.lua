@@ -1,6 +1,6 @@
 local LFO = require('lfo')
 local Lfo = include('lib/lfos/lfo')
-local lfo_count = 18
+local lfo_count = 17 -- 1 CV Input + 16 MIDI Inputs
 
 local Lfos = {
   list = nil

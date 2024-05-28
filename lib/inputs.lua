@@ -14,23 +14,19 @@ end
 
 function Inputs:init(emitter, connections)
   local c = InputCrow:new()
-  c:init(emitter)
+  c:init(1, emitter)
   
   self.list = {c}
 
   for i = 1, #connections do
     local m = InputMidi:new()
-    m:init(emitter, connections[i])
+    m:init(i + 1, emitter, connections[i])
     table.insert(self.list, m)
   end
 end
 
-function Inputs:get(k)
-  return self[k]
-end
-
-function Inputs:set(k, v)
-  self[k] = v
+function Inputs:at(k)
+  return self.list[k]
 end
 
 return Inputs

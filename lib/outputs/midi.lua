@@ -1,7 +1,8 @@
 local Output = include('lib/outputs/output')
 
 local OutputMidi = {
-  connection = nil
+  connection = nil,
+  type = 'midi'
 }
 
 setmetatable(OutputMidi, {__index = Output})
@@ -13,9 +14,10 @@ function OutputMidi:new(options)
   return instance
 end
 
-function OutputMidi:init(emitter, device)
+function OutputMidi:init(id, emitter, device)
   self.connection = device
   self.emitter = emitter
+  self.id = id
 end
 
 function OutputMidi:note_on(message)

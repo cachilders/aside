@@ -1,8 +1,8 @@
 local Output = include('lib/outputs/output')
+local velocity_mod = 10/127
 
 local OutputCrow = {
-  gate_port = nil,
-  volts_port = nil
+  type = 'cv'
 }
 
 setmetatable(OutputCrow, {__index = Output})
@@ -14,20 +14,21 @@ function OutputCrow:new(options)
   return instance
 end
 
-function OutputCrow:init(emitter, n)
-  self.volts_port = n
-  self.gate_port = n + 1
+function OutputCrow:init(id, emitter)
   self.emitter = emitter
+  self.id = id
 end
 
 function OutputCrow:note_on(message)
-  crow.output[self.gate_port].volts = 5
-  crow.output[self.volts_port].volts = message.volts
+  local ports = message.channel == 1 and {1, 2} or {3, 4}
+  crow.output[ports[2]].volts = message.velocity * velocity_mod
+  crow.output[ports[1]].volts = message.volts
   self:_emit(message)
 end
 
 function OutputCrow:note_off(message)
-  crow.output[self.gate_port].volts = 0
+  local ports = message.channel == 1 and {1, 2} or {3, 4}
+  crow.output[ports[2]].volts = message.velocity
   self:_emit(message)
 end
 
