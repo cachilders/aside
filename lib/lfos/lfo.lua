@@ -14,6 +14,9 @@ end
 function Lfo:init(lfo_lib, id)
   self.id = id
   self.instance = lfo_lib:add{
+    max = 1,
+    min = 0,
+    depth = 1,
     mode = 'free',
     period = 1
   }

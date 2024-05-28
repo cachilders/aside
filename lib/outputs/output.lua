@@ -15,6 +15,10 @@ function Output:init(id, emitter)
   self.id = id
 end
 
+function Output:get(k)
+  return self[k]
+end
+
 function Output:note_on(message)
   print(message)
   self:_emit(message)

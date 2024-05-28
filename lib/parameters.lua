@@ -24,10 +24,12 @@ function Parameters:init(lfos)
   self:_fetch_device_state()
   self:_init_device_params()
   self:_init_lfo_params(lfos)
+  params:bang()
 end
 
 function Parameters:refresh(lfos)
   -- TODO
+  params:bang()
 end
 
 function Parameters:get(k)
@@ -62,7 +64,9 @@ function Parameters:_enumerate_midi_devices()
   for i = 1, #midi.vports do
     if midi.vports[i].name ~= 'none' then
       local device = midi.vports[i].device
-      devices[i] = {name = device.name, port = device.port}
+      if device then 
+        devices[i] = {name = device.name, port = device.port}
+      end
     end
   end
 
@@ -73,21 +77,17 @@ function Parameters:_init_device_params()
   local device_count = #self.destinations - 1
   params:add_group('devices', 'Toggle Sources', device_count)
 
-  if self.crow_present then
-    params:add_binary('crow_toggle', 'Echo on Crow', 'toggle', 1)
-  end
-
-  for i = 1, #self.midi_devices do
-    local device = self.midi_devices[i]
+  for i = 2, #self.destinations do
+    local device = self.destinations[i]
     local name = self._truncate_string(device.name, 16)
-    params:add_binary('midi_'..device.port..'_toggle', 'Echo on '..name, 'toggle', 1)
+    params:add_binary(device.name..'_toggle', 'Echo on '..name, 'toggle', 1)
   end
 
   params:add_group('routes', 'Echo Routing', device_count)
   for i = 2, #self.destinations do
+    local device = self.destinations[i]
     local name = self.destination_names[i]
-    local label = i..name..'_route'
-    params:add_option(label, name..' ->', self.destination_names, i)
+    params:add_option(device.name..'_route', name..' ->', self.destination_names, i)
   end
 end
 
@@ -99,7 +99,7 @@ function Parameters:_init_lfo_params(lfos)
   for i = 1, #self.midi_devices do
     local device = self.midi_devices[i]
     local name = self._truncate_string(device.name, 15)
-    lfos[device.port].instance:add_params('midi_'..device.port..'_lfo', 'LFO '..i..'> '..name..' Echo', 'LFO > '..name..' Echo')
+    lfos[i + 1].instance:add_params('midi_'..device.port..'_lfo', 'LFO '..i..'> '..name..' Echo', 'LFO > '..name..' Echo')
   end
 end
 

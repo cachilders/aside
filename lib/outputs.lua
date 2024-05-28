@@ -31,4 +31,8 @@ function Outputs:at(k)
   return self.list[k]
 end
 
+function Outputs:get(k)
+  return self[k]
+end
+
 return Outputs

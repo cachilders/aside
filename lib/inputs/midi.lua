@@ -24,7 +24,7 @@ function InputMidi:init(id, emitter, device)
         note = e.note,
         type = self.type,
         velocity = e.vel,
-        volts = musicutil.note_num_to_freq(e.note) -- TODO scale to make sense
+        volts = e.note / 12
       })
     end
   end
