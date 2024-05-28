@@ -23,15 +23,8 @@ local shift = false
 local test_message = {}
 --
 
-local function get_time()
-  local bpm = 60 / params:get('clock_tempo')
-  return bpm
-end
-
 local function init_emitters()
-  emitters = {
-    bpm = observable.new(get_time())
-  }
+  emitters = {}
 end
 
 local function init_inputs()

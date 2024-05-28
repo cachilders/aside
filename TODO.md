@@ -16,8 +16,7 @@
 - ~~Params~~
   - ~~Just the basics~~
   - ~~Consider LFOs being parametric and available for external modulation~~
-- Scale volts to midi and vice versa
-  - https://llllllll.co/t/frequencies-and-cv-converting-back-and-forth-in-lua-math-math-math/50984/2
+- ~~Scale volts to midi and vice versa~~
 - Route and toggle in relayer
 - Expand Midi
   - Panic
@@ -28,7 +27,7 @@
   - MPE stuff? Probably below the line
 ---
 - Outputs
-  - Add NB
+  - Add NB or mx
 - Consider parameter to replace velocity change with scale degree changes?
 - Other echo variations
 - v/oct maybe uses delay as slew time on delay channel

@@ -99,7 +99,7 @@ function Parameters:_init_lfo_params(lfos)
   for i = 1, #self.midi_devices do
     local device = self.midi_devices[i]
     local name = self._truncate_string(device.name, 15)
-    lfos[device.port].instance:add_params('midi_'..device.port..'_lfo', 'LFO '..i..'> '..name..' Echo', 'LFO > '..name..' Echo')
+    lfos[i + 1].instance:add_params('midi_'..device.port..'_lfo', 'LFO '..i..'> '..name..' Echo', 'LFO > '..name..' Echo')
   end
 end
 

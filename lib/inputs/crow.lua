@@ -22,7 +22,7 @@ function InputCrow:init(id, emitter)
     self:_emit({
       channel = 1,
       event = gate and 'note_on' or 'note_off',
-      note = musicutil.freq_to_note_num(self.volts), -- TODO Scale to midi voltage
+      note = self.volts * 12,
       type = self.type,
       velocity = gate and 127 or 0,
       volts = self.volts
