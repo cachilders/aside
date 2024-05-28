@@ -64,7 +64,7 @@ local function init_subscribers()
     local message = e[1]
     local input_id = e[2]
     local lfo_state = lfos:poll(input_id)
-    relayer:process(message, outputs:at(input_id), lfo_state)
+    relayer:process(message, input_id, lfo_state, parameters:get('destinations'), outputs)
   end)
   emitters.output:register('output_test', function(message) test_message = message end)
 end
