@@ -26,6 +26,10 @@ function Lfos:init()
   self.list = oscillators
 end
 
+function Lfos:get(k)
+  return self[k]
+end
+
 function Lfos:poll(i)
   return {
     period = self.list[i]:get('period'), -- seconds
