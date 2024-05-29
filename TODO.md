@@ -18,7 +18,7 @@
   - ~~Consider LFOs being parametric and available for external modulation~~
 - ~~Scale volts to midi and vice versa~~
 - ~~Route and toggle in relayer~~
-- Expand Midi
+- ~~Expand Midi~~
   - ~~Panic~~
   - ~~Allow instantiation of all midi devices~~
   - ~~Allow parameter enable disable of any midi device~~
