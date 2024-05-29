@@ -75,18 +75,24 @@ end
 function Parameters:_init_device_params()
   local device_count = #self.destinations - 1
   params:add_group('devices', 'Toggle Sources', device_count)
-
   for i = 2, #self.destinations do
     local device = self.destinations[i]
     local name = self._truncate_string(device.name, 16)
     params:add_binary(device.name..'_toggle', 'Echo on '..name, 'toggle', 1)
   end
 
-  params:add_group('routes', 'Echo Routing', device_count)
+  params:add_group('prime_routes', 'Primary Routing', device_count)
   for i = 2, #self.destinations do
     local device = self.destinations[i]
     local name = self.destination_names[i]
-    params:add_option(device.name..'_route', name..' ->', self.destination_names, i)
+    params:add_option(device.name..'_prime_route', name..' ->', self.destination_names, i)
+  end
+
+  params:add_group('echo_routes', 'Echo Routing', device_count)
+  for i = 2, #self.destinations do
+    local device = self.destinations[i]
+    local name = self.destination_names[i]
+    params:add_option(device.name..'_echo_route', name..' ->', self.destination_names, i)
   end
 end
 

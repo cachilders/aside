@@ -27,7 +27,7 @@
   - Add engine output
   - Add routing for engine
   - Add routing channel selection
-  - Add routing for initial note
+  - ~~Add routing for initial note~~
 - UI Feedback
 ---
 - Outputs
