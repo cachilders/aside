@@ -23,6 +23,16 @@ local shift = false
 local test_message = {}
 --
 
+local function midi_panic()
+  for note = 0, 127 do
+    for ch = 1, 16 do
+      for _, connection in pairs(midi_connections) do
+        connection:note_off(note, 0, ch)
+      end
+    end
+  end
+end
+
 local function init_emitters()
   emitters = {}
 end
@@ -52,7 +62,7 @@ end
 
 local function init_parameters()
   parameters = Parameters:new()
-  parameters:init(lfos:get('list'))
+  parameters:init(lfos:get('list'), midi_panic)
 end
 
 local function init_relayer()

@@ -19,8 +19,8 @@ function Parameters:new(options)
   return instance
 end
 
-function Parameters:init(lfos)
-  self:_init_static_params()
+function Parameters:init(lfos, midi_panic)
+  self:_init_static_params(midi_panic)
   self:_fetch_device_state()
   self:_init_device_params()
   self:_init_lfo_params(lfos)
@@ -98,14 +98,18 @@ function Parameters:_init_lfo_params(lfos)
 
   for i = 1, #self.midi_devices do
     local device = self.midi_devices[i]
-    local name = self._truncate_string(device.name, 15)
-    lfos[i + 1].instance:add_params('midi_'..device.port..'_lfo', 'LFO '..i..'> '..name..' Echo', 'LFO > '..name..' Echo')
+    if device then
+      local name = self._truncate_string(device.name, 15)
+      lfos[i + 1].instance:add_params('midi_'..device.port..'_lfo', 'LFO '..i..'> '..name..' Echo', 'LFO > '..name..' Echo')
+    end
   end
 end
 
-function Parameters:_init_static_params()
+function Parameters:_init_static_params(midi_panic)
   params:add_separator('app_name_spacer', '')
   params:add_separator('app_name', 'Magpie')
+  params:add_trigger('midi_panic', 'MIDI Panic')
+  params:set_action('midi_panic', midi_panic)
 end
 
 function Parameters:_refresh_lfo_params(lfos)

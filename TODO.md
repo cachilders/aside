@@ -19,16 +19,16 @@
 - ~~Scale volts to midi and vice versa~~
 - ~~Route and toggle in relayer~~
 - Expand Midi
-  - Panic
+  - ~~Panic~~
   - Allow instantiation of all midi devices
-  - Allow parameter enable disable of any midi device
-  - Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)
+  - ~~Allow parameter enable disable of any midi device~~
+  - ~~Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)~~
   - Respond to device added or removed (if needed)
-  - MPE stuff? Probably below the line
 - UI Feedback
 ---
 - Outputs
-  - Add NB or mx
+  - Add NB or mx.synths
 - Consider parameter to replace velocity change with scale degree changes?
 - Other echo variations
 - v/oct maybe uses delay as slew time on delay channel
+- MPE stuff? Probably below the line
