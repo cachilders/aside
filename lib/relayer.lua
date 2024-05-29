@@ -22,14 +22,16 @@ end
 
 function Relayer:process(message, input_id, lfo_state, destinations, outputs)
   local delay, input_name = nil, destinations[input_id + 1].name
-  local echo_channel = params:get(input_name..'_echo_channel')
+  local echo_channel = params:get(input_name..'_echo_channel_midi')
   local echo_route = params:get(input_name..'_echo_route')
   local echo_destination_name = destinations[echo_route].name
-  local prime_channel = params:get(input_name..'_prime_channel')
+  local prime_channel = params:get(input_name..'_prime_channel_midi')
   local prime_route = params:get(input_name..'_prime_route')
   local prime_destination_name = destinations[prime_route].name
 
-  if prime_channel == 1 and prime_destination_name ~= 'Crow' then
+  if prime_destination_name == 'Crow' then
+    prime_channel = params:get(input_name..'_prime_channel_crow')
+  elseif prime_channel == 1 and prime_destination_name ~= 'Crow' then
     prime_channel = message.channel
   elseif prime_destination_name ~= 'Crow' then
     prime_channel = prime_channel - 1 -- 1 defaults to origin channel
@@ -47,7 +49,9 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
   self:_route_primary(prime_route, prime, outputs)
 
   if params:get(input_name..'_toggle') == 1 then
-    if echo_channel == 1 and echo_destination_name ~= 'Crow' then
+    if prime_destination_name == 'Crow' then
+      prime_channel = params:get(input_name..'_echo_channel_crow')
+    elseif echo_channel == 1 and echo_destination_name ~= 'Crow' then
       echo_channel = message.channel
     elseif echo_destination_name ~= 'Crow' then
       echo_channel = echo_channel - 1 -- 1 defaults to origin channel
