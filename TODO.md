@@ -23,6 +23,11 @@
   - ~~Allow instantiation of all midi devices~~
   - ~~Allow parameter enable disable of any midi device~~
   - ~~Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)~~
+- Routing
+  - Add engine output
+  - Add routing for engine
+  - Add routing channel selection
+  - Add routing for initial note
 - UI Feedback
 ---
 - Outputs
