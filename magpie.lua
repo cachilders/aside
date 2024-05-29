@@ -13,6 +13,7 @@ local emitters = nil
 local inputs = nil
 local lfos = nil
 local midi_connections = nil
+local midi_devices = nil
 local observable = require('container.observable')
 local outputs = nil
 local parameters = nil
@@ -22,6 +23,16 @@ local shift = false
 -- TEMP
 local test_message = {}
 --
+
+local function midi_panic()
+  for note = 0, 127 do
+    for ch = 1, 16 do
+      for _, connection in pairs(midi_connections) do
+        connection:note_off(note, 0, ch)
+      end
+    end
+  end
+end
 
 local function init_emitters()
   emitters = {}
@@ -39,9 +50,18 @@ local function init_lfos()
 end
 
 local function init_midi()
-  midi_connections = {
-    midi.connect()  -- TODO: init all possible devices
-  }
+  midi_connections, midi_devices = {}, {}
+
+  for i = 1, #midi.vports do
+    if midi.vports[i].name ~= 'none' then
+      local device = midi.vports[i].device
+      if device then 
+        print(device.name)
+        midi_devices[i] = {name = device.name, port = device.port}
+        table.insert(midi_connections, midi.connect(device.port))
+      end
+    end
+  end
 end
 
 local function init_outputs()
@@ -52,7 +72,7 @@ end
 
 local function init_parameters()
   parameters = Parameters:new()
-  parameters:init(lfos:get('list'))
+  parameters:init(lfos:get('list'), midi_devices, midi_panic)
 end
 
 local function init_relayer()
