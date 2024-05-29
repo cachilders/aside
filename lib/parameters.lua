@@ -31,7 +31,7 @@ end
 function Parameters:refresh(lfos)
   self:_refresh_lfo_params()
   self:_refresh_route_params()
-  params:bang()
+  -- params:bang()
 end
 
 function Parameters:get(k)
@@ -92,24 +92,24 @@ function Parameters:_init_device_params()
     params:add_binary(device.name..'_toggle', 'Echo on '..name, 'toggle', 1)
   end
 
-  params:add_group('prime_routes', 'Primary Routing', device_count * 2)
+  params:add_group('prime_routes', 'Primary Routing', device_count * 3)
   for i = 2, #self.destinations do
     local device = self.destinations[i]
     local name = self.destination_names[i]
     params:add_option(device.name..'_prime_route', name..' ->', self.destination_names, i)
-    params:set_action(device.name..'_prime_route', function() self:refresh() end)
+    -- params:set_action(device.name..'_prime_route', function() self:refresh() end)
     params:add_option(device.name..'_prime_channel_crow', '  `-> Outlet Channel', self.crow_channel_options, 1)
     params:add_option(device.name..'_prime_channel_midi', '  `-> Outlet Channel', self.midi_channel_options, 1)
   end
 
-  params:add_group('echo_routes', 'Echo Routing', device_count * 2)
+  params:add_group('echo_routes', 'Echo Routing', device_count * 3)
   for i = 2, #self.destinations do
     local channel_options, default_option
     local device = self.destinations[i]
     local name = self.destination_names[i]
 
     params:add_option(device.name..'_echo_route', name..' ->', self.destination_names, i)
-    params:set_action(device.name..'_echo_route', function() self:refresh() end)
+    -- params:set_action(device.name..'_echo_route', function() self:refresh() end)
     params:add_option(device.name..'_echo_channel_crow', '  `-> Outlet Channel', self.crow_channel_options, 2)
     params:add_option(device.name..'_echo_channel_midi', '  `-> Outlet Channel', self.midi_channel_options, 1)
   end

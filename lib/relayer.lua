@@ -31,9 +31,9 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
 
   if prime_destination_name == 'Crow' then
     prime_channel = params:get(input_name..'_prime_channel_crow')
-  elseif prime_channel == 1 and prime_destination_name ~= 'Crow' then
+  elseif prime_channel == 1 then
     prime_channel = message.channel
-  elseif prime_destination_name ~= 'Crow' then
+  else
     prime_channel = prime_channel - 1 -- 1 defaults to origin channel
   end
   
@@ -50,13 +50,13 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
 
   if params:get(input_name..'_toggle') == 1 then
     if prime_destination_name == 'Crow' then
-      prime_channel = params:get(input_name..'_echo_channel_crow')
-    elseif echo_channel == 1 and echo_destination_name ~= 'Crow' then
+      echo_channel = params:get(input_name..'_echo_channel_crow')
+    elseif echo_channel == 1 then
       echo_channel = message.channel
-    elseif echo_destination_name ~= 'Crow' then
+    else
       echo_channel = echo_channel - 1 -- 1 defaults to origin channel
     end
-
+    print(prime_destination_name, prime_channel, echo_channel)
     local echo = {
       channel = echo_channel,
       event = message.event,
