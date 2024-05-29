@@ -56,7 +56,6 @@ local function init_midi()
     if midi.vports[i].name ~= 'none' then
       local device = midi.vports[i].device
       if device then 
-        print(device.name)
         midi_devices[i] = {name = device.name, port = device.port}
         table.insert(midi_connections, midi.connect(device.port))
       end
