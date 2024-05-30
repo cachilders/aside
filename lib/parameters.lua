@@ -3,8 +3,7 @@ local Parameters = {
   crow_present = false,
   destination_names = nil,
   destinations = nil,
-  midi_channel_options = nil,
-  route_params_dirty = false
+  midi_channel_options = nil
 }
 
 function Parameters._truncate_string(s, l)
