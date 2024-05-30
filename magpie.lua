@@ -56,7 +56,6 @@ local function init_midi()
     if midi.vports[i].name ~= 'none' then
       local device = midi.vports[i].device
       if device then 
-        print(device.name)
         midi_devices[i] = {name = device.name, port = device.port}
         table.insert(midi_connections, midi.connect(device.port))
       end
@@ -115,7 +114,7 @@ end
 
 function redraw()
   screen.clear()
-
+  parameters:refresh(lfos)
   if test_message.type then
     local count = 1
     for k, v in pairs(test_message) do

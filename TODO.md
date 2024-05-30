@@ -23,9 +23,15 @@
   - ~~Allow instantiation of all midi devices~~
   - ~~Allow parameter enable disable of any midi device~~
   - ~~Allow echo routing (Midi to CV, CV to CV + Midi, Midi 1 to Midi 3 + 4, etc)~~
+- Routing
+  - ~~Add routing channel selection~~
+  - ~~Add routing for initial note~~
+  - ~~Dynamically adapt channel options for selected device route to enable crow changes~~
 - UI Feedback
 ---
 - Outputs
+  - Add engine output
+  - Add routing for engine
   - Add NB or mx.synths
 - Respond to device added or removed (if needed)
 ---

@@ -1,7 +1,9 @@
 local Parameters = {
+  crow_channel_options = {'1/2', '3/4'},
   crow_present = false,
   destination_names = nil,
-  destinations = nil
+  destinations = nil,
+  midi_channel_options = nil
 }
 
 function Parameters._truncate_string(s, l)
@@ -23,12 +25,12 @@ function Parameters:init(lfos, midi_devices, midi_panic)
   self:_fetch_device_state(midi_devices)
   self:_init_device_params()
   self:_init_lfo_params(lfos, midi_devices)
-  params:bang()
 end
 
-function Parameters:refresh(lfos)
-  -- TODO
-  params:bang()
+function Parameters:refresh()
+  self:_refresh_lfo_params()
+  self:_refresh_route_params()
+  _menu.rebuild_params()
 end
 
 function Parameters:get(k)
@@ -73,21 +75,44 @@ function Parameters:_enumerate_midi_devices(midi_devices)
 end
 
 function Parameters:_init_device_params()
+  local midi_channel_options = {'Origin'}
   local device_count = #self.destinations - 1
-  params:add_group('devices', 'Toggle Sources', device_count)
 
+  for i = 1, 16 do
+    table.insert(midi_channel_options, i)
+  end
+
+  self.midi_channel_options = midi_channel_options
+
+  params:add_group('devices', 'Toggle Sources', device_count)
   for i = 2, #self.destinations do
     local device = self.destinations[i]
     local name = self._truncate_string(device.name, 16)
     params:add_binary(device.name..'_toggle', 'Echo on '..name, 'toggle', 1)
   end
 
-  params:add_group('routes', 'Echo Routing', device_count)
+  params:add_group('prime_routes', 'Primary Routing', device_count * 3)
   for i = 2, #self.destinations do
     local device = self.destinations[i]
     local name = self.destination_names[i]
-    params:add_option(device.name..'_route', name..' ->', self.destination_names, i)
+    params:add_option(device.name..'_prime_route', name..' ->', self.destination_names, i)
+    params:set_action(device.name..'_prime_route', function() self:refresh() end)
+    params:add_option(device.name..'_prime_channel_crow', '  `-> Outlet Ports', self.crow_channel_options, 1)
+    params:add_option(device.name..'_prime_channel_midi', '  `-> Outlet Channel', self.midi_channel_options, 1)
   end
+
+  params:add_group('echo_routes', 'Echo Routing', device_count * 3)
+  for i = 2, #self.destinations do
+    local device = self.destinations[i]
+    local name = self.destination_names[i]
+
+    params:add_option(device.name..'_echo_route', name..' ->', self.destination_names, i)
+    params:set_action(device.name..'_echo_route', function() self:refresh() end)
+    params:add_option(device.name..'_echo_channel_crow', '  `-> Outlet Ports', self.crow_channel_options, 2)
+    params:add_option(device.name..'_echo_channel_midi', '  `-> Outlet Channel', self.midi_channel_options, 1)
+  end
+
+  self:refresh()
 end
 
 function Parameters:_init_lfo_params(lfos, midi_devices)
@@ -113,6 +138,30 @@ end
 
 function Parameters:_refresh_lfo_params(lfos)
   -- TODO init all lfo params and show or hide based on config?
+end
+
+function Parameters:_refresh_route_params()
+  for i = 2, #self.destinations do
+    local device_name = self.destinations[i].name
+    local prime_route_name = self.destinations[params:get(device_name..'_prime_route')].name
+    local echo_route_name = self.destinations[params:get(device_name..'_echo_route')].name
+
+    if prime_route_name == 'Crow' then
+      params:show(device_name..'_prime_channel_crow')
+      params:hide(device_name..'_prime_channel_midi')
+    else
+      params:hide(device_name..'_prime_channel_crow')
+      params:show(device_name..'_prime_channel_midi')
+    end
+
+    if echo_route_name == 'Crow' then
+      params:show(device_name..'_echo_channel_crow')
+      params:hide(device_name..'_echo_channel_midi')
+    else
+      params:hide(device_name..'_echo_channel_crow')
+      params:show(device_name..'_echo_channel_midi')
+    end
+  end
 end
 
 return Parameters
