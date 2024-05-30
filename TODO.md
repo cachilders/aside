@@ -26,7 +26,7 @@
 - Routing
   - ~~Add routing channel selection~~
   - ~~Add routing for initial note~~
-  - Dynamically adapt channel options for selected device route to enable crow changes
+  - ~~Dynamically adapt channel options for selected device route to enable crow changes~~
 - UI Feedback
 ---
 - Outputs

@@ -56,7 +56,7 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
     else
       echo_channel = echo_channel - 1 -- 1 defaults to origin channel
     end
-    print(prime_destination_name, prime_channel, echo_channel)
+
     local echo = {
       channel = echo_channel,
       event = message.event,

@@ -114,7 +114,7 @@ end
 
 function redraw()
   screen.clear()
-
+  parameters:refresh(lfos)
   if test_message.type then
     local count = 1
     for k, v in pairs(test_message) do
