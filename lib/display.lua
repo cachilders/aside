@@ -27,7 +27,7 @@ end
 
 function Display:render()
   screen.display_png(ASSET_PATH..BACKGROUND..EXT, 0, 0)
-  screen.display_png(ASSET_PATH..ECHO_BIRD..EXT, 91, 13)
+  screen.display_png(ASSET_PATH..ECHO_BIRD..EXT, 92, 13)
   screen.display_png(ASSET_PATH..PRIME_BIRD..EXT, 11, 23)
   screen.display_png(ASSET_PATH..FOREGROUND..EXT, 0, 0)
 
@@ -75,7 +75,7 @@ end
 function Display:_sing(message)
   local delay, note_on = message.delay, message.event == 'note_on'
 
-  if message.echo then
+  if message.echo and message.velocity > 0 then
     self:_respond(delay, note_on)
   else
     self:_call(delay, note_on)

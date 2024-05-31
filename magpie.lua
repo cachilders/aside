@@ -1,9 +1,9 @@
 -- Magpie
--- modulated note echo for midi and crow
--- no keys; no encoders
--- only signal; only params
+-- modulated note echo for
+-- midi and crow
 
-musicutil = require('musicutil')
+-- no keys | no encoders
+-- only signal | only params
 
 local Display = include('lib/display')
 local Inputs = include('lib/inputs')
@@ -23,10 +23,6 @@ local outputs = nil
 local parameters = nil
 local relayer = nil
 local shift = false
-
--- TEMP
-local test_message = {}
---
 
 local function midi_panic()
   for note = 0, 127 do

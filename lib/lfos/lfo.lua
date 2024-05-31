@@ -17,8 +17,8 @@ function Lfo:init(lfo_lib, id)
     max = 1,
     min = 0,
     depth = 1,
-    mode = 'free',
-    period = 1
+    mode = 'clocked',
+    period = 0.25
   }
 end
 

@@ -34,7 +34,7 @@ function Lfos:poll(i)
   return {
     mode = self.list[i]:get('mode'),
     period = self.list[i]:get('period'), -- seconds
-    value = self.list[i]:get('raw') -- 0..1.0
+    value = self.list[i]:get('scaled') -- 0..1.0
   }
 end
 
