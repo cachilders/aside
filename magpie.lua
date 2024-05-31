@@ -1,14 +1,18 @@
 -- Magpie
 -- modulated note echo for midi and crow
+-- no keys; no encoders
+-- only signal; only params
 
 musicutil = require('musicutil')
 
+local Display = include('lib/display')
 local Inputs = include('lib/inputs')
 local Lfos = include('lib/lfos')
 local Outputs = include('lib/outputs')
 local Parameters = include('lib/parameters')
 local Relayer = include('lib/relayer')
 
+local display = nil
 local emitters = nil
 local inputs = nil
 local lfos = nil
@@ -32,6 +36,11 @@ local function midi_panic()
       end
     end
   end
+end
+
+local function init_display(emitters)
+  display = Display:new()
+  display:init(emitters)
 end
 
 local function init_emitters()
@@ -97,6 +106,7 @@ function init()
   init_parameters()
   init_relayer()
   init_subscribers()
+  init_display(emitters)
 end
 
 function enc(e, d)
@@ -115,18 +125,7 @@ end
 function redraw()
   screen.clear()
   parameters:refresh(lfos)
-  if test_message.type then
-    local count = 1
-    for k, v in pairs(test_message) do
-      screen.move(1, count * 10)
-      screen.text(k..' = '..tostring(v))
-      count = count + 1
-    end
-  else
-    screen.move(1, 10)
-    screen.text('Test')
-  end
-
+  display:render()
   screen.update()
 end
 
