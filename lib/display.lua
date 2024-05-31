@@ -75,7 +75,7 @@ end
 function Display:_sing(message)
   local delay, note_on = message.delay, message.event == 'note_on'
 
-  if message.echo then
+  if message.echo and message.velocity > 0 then
     self:_respond(delay, note_on)
   else
     self:_call(delay, note_on)

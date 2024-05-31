@@ -1,7 +1,9 @@
 -- Magpie
--- modulated note echo for midi and crow
--- no keys; no encoders
--- only signal; only params
+-- modulated note echo for
+-- midi and crow
+
+-- no keys | no encoders
+-- only signal | only params
 
 local Display = include('lib/display')
 local Inputs = include('lib/inputs')
