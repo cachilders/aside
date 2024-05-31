@@ -21,7 +21,7 @@ function Relayer:delay(s, message, output)
 end
 
 function Relayer:process(message, input_id, lfo_state, destinations, outputs)
-  local delay, input_name = nil, destinations[input_id + 1].name
+  local delay, input_name = self:_calculate_delay(lfo_state), destinations[input_id + 1].name
   local echo_channel = params:get(input_name..'_echo_channel_midi')
   local echo_route = params:get(input_name..'_echo_route')
   local echo_destination_name = destinations[echo_route].name
@@ -39,9 +39,11 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
   
   local prime = {
     channel = prime_channel,
+    echo = false,
     event = message.event,
-    origin = 'prime',
+    delay = delay,
     note = message.note,
+    source = input_id,
     type = message.type,
     velocity = message.velocity * lfo_state.value,
     volts = message.volts
@@ -60,15 +62,16 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
 
     local echo = {
       channel = echo_channel,
+      echo = true,
       event = message.event,
-      origin = 'echo',
+      delay = delay,
       note = message.note,
+      source = input_id,
       type = message.type,
       velocity = message.velocity * lfo_state.value,
       volts = message.volts
     }
 
-    delay = self:_calculate_delay(lfo_state)
     self:_route_delay(delay, echo_route, echo, outputs)
   end
 end

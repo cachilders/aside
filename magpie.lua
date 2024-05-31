@@ -1,5 +1,7 @@
 -- Magpie
 -- modulated note echo for midi and crow
+-- no keys; no encoders
+-- only signal; only params
 
 musicutil = require('musicutil')
 
@@ -124,18 +126,6 @@ function redraw()
   screen.clear()
   parameters:refresh(lfos)
   display:render()
-  -- if test_message.type then
-  --   local count = 1
-  --   for k, v in pairs(test_message) do
-  --     screen.move(1, count * 10)
-  --     screen.text(k..' = '..tostring(v))
-  --     count = count + 1
-  --   end
-  -- else
-  --   screen.move(1, 10)
-  --   screen.text('Test')
-  -- end
-
   screen.update()
 end
 
