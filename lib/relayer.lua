@@ -45,14 +45,14 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
     note = message.note,
     source = input_id,
     type = message.type,
-    velocity = message.velocity * lfo_state.value,
+    velocity = message.velocity,
     volts = message.volts
   }
 
   self:_route_primary(prime_route, prime, outputs)
 
   if params:get(input_name..'_toggle') == 1 then
-    if prime_destination_name == 'Crow' then
+    if echo_destination_name == 'Crow' then
       echo_channel = params:get(input_name..'_echo_channel_crow')
     elseif echo_channel == 1 then
       echo_channel = message.channel
@@ -66,9 +66,8 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
       event = message.event,
       delay = delay,
       note = message.note,
-      source = input_id,
       type = message.type,
-      velocity = message.velocity * lfo_state.value,
+      velocity = math.floor(message.velocity * lfo_state.value),
       volts = message.volts
     }
 
