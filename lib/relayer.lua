@@ -40,6 +40,7 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
   local prime = {
     channel = prime_channel,
     event = message.event,
+    origin = 'prime',
     note = message.note,
     type = message.type,
     velocity = message.velocity * lfo_state.value,
@@ -60,6 +61,7 @@ function Relayer:process(message, input_id, lfo_state, destinations, outputs)
     local echo = {
       channel = echo_channel,
       event = message.event,
+      origin = 'echo',
       note = message.note,
       type = message.type,
       velocity = message.velocity * lfo_state.value,
