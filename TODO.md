@@ -33,9 +33,9 @@
   - Add engine output
   - Add routing for engine
   - Add NB or mx.synths
-- Respond to device added or removed (if needed)
+- Respond to device added or removed
 ---
 - Consider parameter to replace velocity change with scale degree changes?
 - Other echo variations
 - v/oct maybe uses delay as slew time on delay channel
-- MPE stuff? Probably below the line
+- MPE stuff

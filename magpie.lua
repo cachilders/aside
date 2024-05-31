@@ -3,8 +3,6 @@
 -- no keys; no encoders
 -- only signal; only params
 
-musicutil = require('musicutil')
-
 local Display = include('lib/display')
 local Inputs = include('lib/inputs')
 local Lfos = include('lib/lfos')
@@ -23,10 +21,6 @@ local outputs = nil
 local parameters = nil
 local relayer = nil
 local shift = false
-
--- TEMP
-local test_message = {}
---
 
 local function midi_panic()
   for note = 0, 127 do
