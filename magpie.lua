@@ -1,7 +1,7 @@
 -- Magpie
 -- modulated note echo for
--- midi and crow
-
+-- midi and cv
+-- 
 -- no keys | no encoders
 -- only signal | only params
 
