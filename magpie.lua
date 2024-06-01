@@ -2,8 +2,8 @@
 -- modulated note echo for
 -- midi and cv
 -- 
--- no keys | no encoders
--- only signal | only params
+-- no keys or encoders
+-- only signal and params
 
 local Display = include('lib/display')
 local Inputs = include('lib/inputs')
