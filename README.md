@@ -33,7 +33,7 @@ It is controlled via LFO. Each signal source gets its own.
 
 ![param menu with lfo highlighted](./assets/docs/params-2.png)
 
-The delay detween an incoming note and its echo is the `lfo rate` of the controlling oscillator.
+The delay between an incoming note and its echo is the `lfo rate` of the controlling oscillator.
 
 ![param menu for lfo at rate](./assets/docs/lfo-delay.png)
 
