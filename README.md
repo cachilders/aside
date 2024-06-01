@@ -21,19 +21,19 @@ What about the note echo, though?
 
 Well, it can be toggled on and off.
 
-![param menu with toggle sources highlighted](./assets/docs/params-routing-echo.png)
+![param menu echo routing](./assets/docs/params-routing-echo.png)
 
 It get its own separate routing.
 
-![param menu with toggle sources highlighted](./assets/docs/params-2.png)
+![param menu with lfo highlighted](./assets/docs/params-2.png)
 
 It is controlled via LFO. Each signal source gets its own.
 
-![param menu with toggle sources highlighted](./assets/docs/lfo-delay.png)
+![param menu for lfo at rate](./assets/docs/lfo-delay.png)
 
 The delay detween an incoming note and its echo is the `lfo rate` of the controlling oscillator.
 
-![param menu with toggle sources highlighted](./assets/docs/lfo-velocity.png)
+![param menu for lfo at range](./assets/docs/lfo-velocity.png)
 
 The amplitude of the echo is the product of the incoming note's velocity and controlling oscillator's `scaled value` at the time the incoming note is received.
 
